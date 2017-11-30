@@ -7,11 +7,25 @@
     che il primo blocco finisca sotto l'header
     */
 
+    var myStr = 'ciao';
+    var myInt = 100;
+    var myFlat = 12.312;
+    var myBool = false;
+
+
+    var hHead = $('#head').height();
+    var hHead1 = $('#head').css('height');
+    var hHead2 = $('#head').innerHeight();
+
+    //$('#spacer').innerHeight(hHead2);
+    //$('#spacer').css('height', hHead1);
+    $('#spacer').innerHeight(parseInt(hHead1));
+
     /*
     LE FUNZIONI
     possiamo raccogliere dei comandi in un blocco unico "funzione" ed eseguirli all'occorrenza.
     Alle funzioni possiamo passare delle variabili definite "parametri" e otterere dei risultati
-    var quadrato = function(x){ var result = x*x; return x; }
+    var quadrato = function(x){ var result = x*x; return result; }
     l'esecuzione di una funzione si ottiene richiamandola come segue:
     var risultato = quadrato(2);
     console.log(risultato); //scriverà 4
@@ -23,6 +37,13 @@
     in modo che l'elemento risulti quadrato.
     */
 
+    var quadrato = function( el ){
+        var L = el.innerWidth();
+        el.innerHeight(L);
+        return el;
+    }
+    //var valore = quadrato($('.wrapper').first());
+
     /*
     ESECIZIO 3
     per ogni elemento .cover contente un'immagine leggere l'url dell'immagine.
@@ -30,18 +51,25 @@
     ed applicarvi la funzione creata al punto 2
     impostare per ogni immagine il display a none.
     */
-
+    $('.cover').each(function(){
+      //elemento corrente $(this)
+      var urlImg = $(this).find('img').attr('src');
+      $(this).find('img').css('display','none');
+      $(this).css('backgroundImage','url('+urlImg+')');
+      quadrato($(this).parent());
+    });
     /*
     EVENTO CLICK
     dato un elemento è possibile associarvi un evento. Gli eventi corrispondono
     ad azioni eseguite dall'utente. Al click del mouse corrisponde l'evento CLICK
-    $('selettore').on('click', function(e){ console.log('click'); })
+    $('selettore').on('click', function(e){ e.preventDefault(); console.log('click'); })
     */
 
     /*
     ESERCIZIO 4
-    creare una funzione che quando viene eseguita aggiunge una classe "menuOpen" all'elemento BODY
-    o la rimuove se questo è già presente.
+    creare una funzione che quando viene eseguita aggiunga una classe "menuOpen"
+    all'elemento BODY
+    o la rimuova se questa è già presente.
     Eseguire questa funzione al click sul link "toggle navigation".
     */
 
@@ -57,7 +85,7 @@
     ESERCIZIO 6
     leggere l'url delle immagini contenute in ogni article.
     Per ogni elemento definire un elemento html di tipo immagine e inserirlo
-    nell'elemento #gallery 
+    nell'elemento #gallery
     */
 
     /**
