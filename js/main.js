@@ -21,6 +21,7 @@
     //$('#spacer').css('height', hHead1);
     $('#spacer').innerHeight(parseInt(hHead1));
 
+
     /*
     LE FUNZIONI
     possiamo raccogliere dei comandi in un blocco unico "funzione" ed eseguirli all'occorrenza.
@@ -65,9 +66,10 @@
     $('selettore').on('click', function(e){ e.preventDefault(); console.log('click'); })
     */
 
+
     /*
     ESERCIZIO 4
-    creare una funzione che quando viene eseguita aggiunga una classe "menuOpen"
+    creare una funzione che quando viene eseguita aggiunga una classe "openMenu"
     all'elemento BODY
     o la rimuova se questa è già presente.
     Eseguire questa funzione al click sul link "toggle navigation".
@@ -80,7 +82,11 @@
     Usarla per posizionare in modo casuale gli article all'avvio della pagina
     utilizzando la proprietà css transform
     */
-
+    $('article').each(function(){
+      var rndX = getRandomInt(-20,20);
+      var rndY = getRandomInt(-5,5);
+      $(this).css('transform','translateY('+rndY+'%) translateX('+rndX+'%)');
+    });
     /*
     ESERCIZIO 6
     leggere l'url delle immagini contenute in ogni article.
