@@ -75,6 +75,14 @@
     Eseguire questa funzione al click sul link "toggle navigation".
     */
 
+    function toggleMenu(e){
+      e.preventDefault();
+      $('body').toggleClass('openMenu');
+    }
+    $('#navRef a').on({
+      click : toggleMenu,
+    });
+
     /*
     ESERCIZIO 5
     in fondo alla pagina è definita una funzione che ritorna un intero ramdom
@@ -83,9 +91,9 @@
     utilizzando la proprietà css transform
     */
     $('article').each(function(){
-      var rndX = getRandomInt(-20,20);
+      var rndX = getRandomInt(-5,5);
       var rndY = getRandomInt(-5,5);
-      $(this).css('transform','translateY('+rndY+'%) translateX('+rndX+'%)');
+      //$(this).css('transform','translateY('+rndY+'%) translateX('+rndX+'%)');
     });
     /*
     ESERCIZIO 6
@@ -93,6 +101,53 @@
     Per ogni elemento definire un elemento html di tipo immagine e inserirlo
     nell'elemento #gallery
     */
+
+
+    var $gall_target = $('#gallery'),
+        $gall_wrapper = $('<div id="gall_wrapper" data-current="0" />'),
+        $gall_nav = $('<div id="navigation"><a href="#" class="left" /><a href="#" class="right" /></div>');
+
+    var $gall_move = function($gall_index){
+        var nuWidth = -100 / $('#gallery .slide').length;
+        var amount = nuWidth * $gall_index;
+        $('#gall_wrapper').css({
+          transform : 'translateX('+amount+'%)'
+        });
+    }
+
+    $('article').each(function(i, e){
+      $gall_wrapper.append('<div class="slide" data-index="'+i+'" style="background-image:url('+$(e).find('img').attr('src')+')"><img src="'+$(e).find('img').attr('src')+'" /></div>');
+    });
+    $gall_target.append($gall_wrapper);
+
+    var nuWidth = 100 * $('#gallery .slide').length;
+    $gall_wrapper.css('width',nuWidth+'%');
+    var nuWidth = 100 / $('#gallery .slide').length;
+    $gall_wrapper.find('.slide').css({width:nuWidth+'%'});
+
+    $gall_target.append($gall_nav);
+
+    $('#navigation .left').on({
+      click : function(e){
+        e.preventDefault();
+        var currentId = parseInt($('#gall_wrapper').attr('data-current'));
+        currentId = currentId-1;
+        if(currentId < 0 ){ currentId = $('#gallery .slide').length-1; }
+        $('#gall_wrapper').attr('data-current', currentId);
+        $gall_move(currentId);
+      }
+    });
+    $('#navigation .right').on({
+      click : function(e){
+        e.preventDefault();
+        var currentId = parseInt($('#gall_wrapper').attr('data-current'));
+        currentId = currentId+1;
+        if(currentId >= $('#gallery .slide').length){ currentId = 0; }
+        $('#gall_wrapper').attr('data-current', currentId);
+        $gall_move(currentId);
+      }
+    });
+
 
     /**
      * Returns a random integer between min (inclusive) and max (inclusive)
