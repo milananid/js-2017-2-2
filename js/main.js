@@ -101,6 +101,10 @@
     Per ogni elemento definire un elemento html di tipo immagine e inserirlo
     nell'elemento #gallery
     */
+    
+
+
+
 
 
     var $gall_target = $('#gallery'),
